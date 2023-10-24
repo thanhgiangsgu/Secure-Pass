@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const port = 3001;
+const port = 3000;
 const mongoose = require('mongoose');
 const route = require('./src/routers');
 const bodyParser = require('body-parser');
@@ -19,4 +19,4 @@ app.get('/trang-chu', (req, res)  => {
 
 route(app);
 
-app.listen(port, () => console.log('Example app listening at localhost port'));
+app.listen(port, () => console.log('Example app listening at localhost port '+port));

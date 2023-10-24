@@ -1,3 +1,4 @@
+const UserModel = require('../models/User'); // Đổi tên biến UserModel
 const user = require('../models/User')
 
 class User {
@@ -20,136 +21,203 @@ class User {
         })
     }
 
-    checkLogin(req, res) {
+    async checkLogin(req, res) {
         console.log(req.body);
-        user.findOne({email: req.body.email})
-            .then((accountRelative) => {
-                try {
-                    console.log("Join to try catch");
-                    console.log(req.body.password);
-                    if (accountRelative && accountRelative.password == req.body.password) {
-                        return res.json({
-                            accountRelative
-                        });
-                    }
-                    res.json({
-                        check: "false"
-                    });
-                } catch (error) {
-                    console.log(error);
-                    res.json({
-                        check: "false"
-                    });
-                }
-            })
-            .catch((error) => {
-                console.error(error);
-                res.json({
-                    check: "false"
+        try {
+            const accountRelative = await UserModel.findOne({ email: req.body.email });
+    
+            if (accountRelative && accountRelative.password === req.body.password) {
+                return res.json({
+                    check: "true"
                 });
+            }
+    
+            res.json({
+                check: "false"
             });
+        } catch (error) {
+            console.error("Join to try catch");
+            console.error(error);
+            res.json({
+                check: "false"
+            });
+        }
     }
+    
     
 
     async deleteUser(req, res) {
         console.log("Join to deleteUser");
-        await user.findOneAndDelete({ email: req.params.id })
         try {
-            res.status(204).json({
-                status: "Success",
-                data: {},
-            })
+            const result = await UserModel.findOneAndDelete({ email: req.params.id });
+            if (!result) {
+                // Không tìm thấy người dùng
+                res.status(404).json({
+                    status: "failed",
+                    message: "User not found",
+                });
+            } else {
+                res.status(204).json({
+                    status: "Success",
+                    data: {},
+                });
+            }
         } catch (error) {
+            // Xử lý lỗi nếu có lỗi trong quá trình thực hiện findOneAndDelete()
             res.status(500).json({
                 status: "failed",
-                message: err
-            })
+                message: error.message,
+            });
         }
     }
+    
 
     async checkEmail(req, res) {
         console.log("Join to checkEmail function");
+    
         if (!req.body || !req.body.email) {
             return res.status(400).json({ error: 'Invalid request body' });
         }
-
+    
         const userEmail = req.body.email;
         console.log(userEmail);
-
+    
         // Sử dụng async/await
         try {
-            const userRelative = await user.findOne({ email: userEmail });
-            if (!userRelative) {
-                return res.json({ check: 'false' });
-            } else {
+            const userRelative = await UserModel.findOne({ email: userEmail });
+    
+            if (userRelative) {
                 return res.json({ check: 'true' });
+            } else {
+                return res.json({ check: 'false' });
             }
         } catch (err) {
             console.error(err);
             return res.status(500).json({ error: 'Internal server error' });
         }
     }
+    
 
-
-    addUser(req, res) {
+    async  addUser(req, res) {
         console.log("Join to addUser");
-        const dataUser = new user(req.body);
+        const { email, name, password, phoneNumber } = req.body;
+    
         try {
-            dataUser.save()
+            const existingUser = await UserModel.findOne({ email });
+
+            if (existingUser) {
+                return res.status(400).json({ check: 'false', message: 'Email already exists' });
+            }
+    
+            const newUser = new UserModel({ email, name, password, phoneNumber });
+            await newUser.save();
+            
             res.status(201).json({
                 check: "Success",
                 data: {
-                    dataUser
+                    newUser
                 }
-            })
+            });
         } catch (error) {
             res.status(500).json({
                 check: 'false',
-                message: error
-            })
+                message: error.message
+            });
         }
     }
 
     async updateUser(req, res) {
         console.log("Join to updateUser");
-        const updateUser = await user.findOneAndUpdate(
-            { email: req.body.email }, req.body, { new: true }
-        )
+        const { email, name, password, phoneNumber } = req.body;
+    
         try {
+            const existingUser = await UserModel.findOne({ email });
+    
+            if (!existingUser) {
+                return res.status(404).json({
+                    status: "Failed",
+                    message: "User not found"
+                });
+            }
+    
+            // Cập nhật thông tin người dùng nếu dữ liệu được cung cấp
+            if (name) {
+                existingUser.name = name;
+            }
+            if (password) {
+                existingUser.password = password;
+            }
+            if (phoneNumber) {
+                existingUser.phoneNumber = phoneNumber;
+            }
+    
+            const updatedUser = await existingUser.save();
+    
             res.status(200).json({
                 status: "Success",
                 data: {
-                    updateUser
+                    updateUser: updatedUser
                 }
-            })
+            });
         } catch (error) {
-            console.log(error);
+            console.error(error);
+            res.status(500).json({
+                status: "Failed",
+                message: "Internal server error"
+            });
         }
     }
+    
+    
 
-    getDataUser(req, res) {
-        user.find({ email: req.params.id }, function (err, userRelative) {
-            res.json(userRelative)
-        })
-    }
-
-    async showAllEmail(){
+    async getDataUser(req, res) {
         try {
-            const users = await user.find({}, 'email'); // Truy vấn tất cả các bản ghi và chỉ lấy trường 'email'
-            
-            if (users.length === 0) {
-                console.log('Không có email nào trong cơ sở dữ liệu.');
-                return;
+            const userRelative = await UserModel.find({ id: req.params.id }).exec();
+    
+            if (!userRelative) {
+                return res.status(404).json({
+                    status: "Failed",
+                    message: "User not found"
+                });
             }
     
-            console.log('Danh sách các email:');
-            users.forEach((user) => {
-                console.log(user.email);
+            res.status(200).json(userRelative);
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({
+                status: "Failed",
+                message: "Internal server error"
+            });
+        }
+    }
+    
+
+    async showAllEmail(req, res) {
+        try {
+            const users = await UserModel.find({}, '_id email');
+    
+            if (users.length === 0) {
+                return res.status(200).json({
+                    message: 'Không có email nào trong cơ sở dữ liệu.'
+                });
+            };
+    
+            const emailList = users.map(user => ({
+                _id: user._id,
+                email: user.email
+            }));
+    
+            return res.status(200).json({
+                emails: emailList
             });
         } catch (error) {
             console.error('Lỗi khi truy vấn email:', error);
+            return res.status(500).json({
+                message: 'Lỗi khi truy vấn email'
+            });
         }
     }
+    
 }
 
 module.exports = new User

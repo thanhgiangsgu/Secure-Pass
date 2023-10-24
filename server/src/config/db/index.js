@@ -1,3 +1,4 @@
+
 const mongoose = require('mongoose');
 
 async function connect(){
@@ -6,7 +7,7 @@ async function connect(){
         useUnifiedTopology: true,
     }
     try {
-        mongoose.connect('mongodb+srv://thanhyarn:123@atlascluster.bfqeyvn.mongodb.net/SecurePass')
+        mongoose.connect('mongodb+srv://khanhdz3612:123@cluster0.akhsnjk.mongodb.net/')
         console.log("database connected");
     } catch (error) {
         console.log(error);
