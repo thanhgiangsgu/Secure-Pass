@@ -1,0 +1,156 @@
+.login-signin-container {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  margin-top: 50px;
+  background: #fff;
+  padding-bottom: 30px;
+  border-radius: 30px;
+  width: 40%;
+}
+
+.login-signin-container .header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 9px;
+  width: 100%;
+  margin-top: 30px;
+}
+
+.login-signin-container .container {
+  color: #3c009d;
+  font-size: 50px;
+  font-weight: 700;
+}
+
+.login-signin-container .underline {
+  width: 60px;
+  height: 6px;
+  background: #3c009d;
+  border-radius: 9px;
+}
+
+.login-signin-container .text {
+  font-size: 40px;
+  font-weight: 700;
+  color: #4c00b4;
+}
+
+.login-signin-container .inputs {
+  margin-top: 55px;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.login-signin-container .input {
+  display: flex;
+  align-items: center;
+  margin: auto;
+  width: 63%;
+  height: 60px;
+  background: #dad7d7;
+  border-radius: 16px;
+}
+
+.login-signin-container .two-forms {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  justify-items: center;
+  flex-direction: row;
+  margin: 0;
+  width: 100%;
+}
+
+.login-signin-container .two-forms .input {
+  margin: 0 10px;
+  width: 30%;
+  display: flex;
+  align-items: center;
+  height: 60px;
+  background: #dad7d7;
+  border-radius: 16px;
+  padding-left: 10px;
+}
+
+.icon {
+  font-size: 35px;
+}
+
+.two-forms .input .icon {
+  font-size: 40px;
+}
+
+.input input {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #797979;
+  font-size: 20px;
+}
+
+.forgot-password {
+  padding-left: 55%;
+  margin-top: 27px;
+  color: #797979;
+  font-size: 15px;
+}
+
+.forgot-password span {
+  color: #4c00b4;
+  cursor: pointer;
+}
+
+.submit-container {
+  display: flex;
+  gap: 30px;
+  margin: 60px auto;
+}
+
+.submit {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 220px;
+  height: 60px;
+  color: #fff;
+  background: #4c00b4;
+  border-radius: 50px;
+  font-size: 20px;
+  font-weight: 700px;
+  cursor: pointer;
+}
+
+.gray {
+  background: #aeaeae;
+  color: #676767;
+}
+
+.mt-80 {
+  margin-top: 145px;
+}
+
+.code-input {
+  display: flex;
+  justify-content: space-between;
+  margin: auto;
+  width: 80%;
+}
+
+.code-input input {
+  width: 15%;
+  height: 100%;
+  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 56px;
+  margin-right: 5px;
+  border-radius: 10px;
+  border: black solid 2px;
+}
+
+.code-input input:last-child {
+  margin-right: 0;
+}

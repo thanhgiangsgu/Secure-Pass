@@ -1,0 +1,11 @@
+.content {
+  width: 100%;
+  display: flex;
+  float: left;
+  height: 1000px;
+  justify-content: center;
+}
+
+.custom-datepicker {
+  width: 220px;
+}

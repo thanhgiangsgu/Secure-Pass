@@ -1,0 +1,32 @@
+.divider {
+  border-top: 2px solid #ccc; /* Sử dụng đường kẻ ngang 1 pixel và màu xám */
+  margin: 10px 0; /* Khoảng cách trên và dưới đường phân cách */
+  width: 500%;
+}
+
+.account-title {
+  font-size: 24px;
+  vertical-align: inherit;
+  font-family: "Courier New", Courier, monospace;
+}
+
+.account h2 {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 20px;
+}
+
+.warning {
+  border-left: 8px solid #ffa500; /* Màu cam cho đường viền bên trái */
+  background-color: #f9f9f9; /* Màu nền của thẻ */
+  padding: 15px; /* Khoảng cách bên trong thẻ */
+  font-weight: bold; /* Độ đậm của văn bản */
+}
+
+.waring-title {
+  color: #ffa500;
+}
+
+.warning i {
+  color: rgb(139 102 9); /* Màu của biểu tượng chú ý */
+  margin-right: 5px; /* Khoảng cách giữa biểu tượng và văn bản */
+}

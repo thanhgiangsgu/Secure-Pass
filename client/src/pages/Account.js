@@ -8,15 +8,13 @@ import {
   VideoCameraOutlined,
 } from "@ant-design/icons";
 import { Layout, Menu, Button, theme } from "antd";
-import Warehouse from "./Warehouse";
-import Message from "./Message";
-import AuditLog from "./AuditLog";
+import MyAccount from "./MyAccount";
+import ChangePass from "./ChangePass";
 import TwoFa from "./TwoFa";
 import "./Account.css";
-
 const { Header, Sider, Content } = Layout;
 
-const Dashboard = () => {
+const Account = () => {
   const [collapsed, setCollapsed] = useState(false);
   const [selectedItem, setSelectedItem] = useState("1"); // Mặc định chọn item 1
   const {
@@ -40,17 +38,17 @@ const Dashboard = () => {
               {
                 key: "1",
                 icon: <UserOutlined />,
-                label: "Password Record",
+                label: "Account Information",
               },
               {
                 key: "2",
                 icon: <VideoCameraOutlined />,
-                label: "Message",
+                label: "Security",
               },
               {
                 key: "3",
                 icon: <UploadOutlined />,
-                label: "Lịch sử thao tác",
+                label: "2FA",
               },
             ]}
             selectedKeys={[selectedItem]} // Đặt selectedKeys bằng trạng thái selectedItem
@@ -76,10 +74,17 @@ const Dashboard = () => {
               }}
             />
           </Header>
-          <Content className="content">
-            {selectedItem === "1" && <Warehouse />}
-            {selectedItem === "2" && <Message />}
-            {selectedItem === "3" && <AuditLog />}
+          <Content
+            style={{
+              margin: "24px 16px",
+              padding: 24,
+              minHeight: 600,
+              background: colorBgContainer,
+            }}
+          >
+            {selectedItem === "1" && <MyAccount />}
+            {selectedItem === "2" && <ChangePass />}
+            {selectedItem === "3" && <TwoFa />}
           </Content>
         </Layout>
       </Layout>
@@ -87,4 +92,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default Account;

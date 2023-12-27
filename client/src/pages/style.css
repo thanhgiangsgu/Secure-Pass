@@ -1,0 +1,40 @@
+body {
+  height: 100%;
+}
+
+@media (max-width: 768px) {
+  .card-list.row {
+    flex-direction: column; /* Đổi chiều dọc thành chiều ngang */
+  }
+
+  .card-container {
+    margin-bottom: 15px; /* Tạo khoảng cách giữa các card-container */
+    flex-direction: column;
+    align-items: center; /* Center items horizontally */
+  }
+
+  .card-item__img {
+    flex-direction: column;
+  }
+
+  .card-item__img {
+    margin-bottom: 15px; /* Optional: Add some space between elements */
+  }
+
+  .title {
+    margin-top: 10px; /* Optional: Add some space between image and title */
+  }
+}
+
+.item-top-left {
+  font-weight: 500;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  letter-spacing: 2px;
+  font-size: 16px;
+  color: darkolivegreen;
+}
+
+.card-item__content {
+  color: rgb(25, 26, 27);
+  font-weight: 400;
+}
